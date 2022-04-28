@@ -62,6 +62,12 @@ public class PostsService {
     }
 
     @Transactional
+    public int updateRec(Long id)
+    {
+        return postsRepository.updateRec(id);
+    }
+
+    @Transactional
     public void delete(Long id)
     {
         Posts posts = postsRepository.findById(id).orElseThrow(

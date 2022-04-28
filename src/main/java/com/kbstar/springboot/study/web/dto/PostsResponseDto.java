@@ -19,6 +19,7 @@ public class PostsResponseDto {
     private String content;
     private String author;
     private int view;
+    private int rec;
 
     public PostsResponseDto(Posts entity) {
         this.id = entity.getId();
@@ -26,5 +27,6 @@ public class PostsResponseDto {
         this.content = entity.getContent();
         this.author = entity.getAuthor();
         this.view = entity.getView();
+        this.rec = entity.getRec();
     }
 }

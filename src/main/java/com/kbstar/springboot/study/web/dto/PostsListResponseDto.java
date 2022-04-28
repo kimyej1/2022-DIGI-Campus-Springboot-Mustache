@@ -17,6 +17,7 @@ public class PostsListResponseDto {
     private String author;
     private String modifiedDate;
     private int view;
+    private int rec;
 
     public PostsListResponseDto(Posts entity)
     {
@@ -25,6 +26,7 @@ public class PostsListResponseDto {
         this.author = entity.getAuthor();
         this.modifiedDate = entity.getModifiedDate();
         this.view = entity.getView();
+        this.rec = entity.getRec();
     }
 
 }

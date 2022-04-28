@@ -32,6 +32,10 @@ public interface PostsRepository extends JpaRepository<Posts, Long> { // JpaRepo
     @Query("UPDATE Posts p SET p.view = p.view + 1 WHERE p.id = :id ")
     int updateView(Long id);
 
+    @Modifying
+    @Query("UPDATE Posts p SET p.rec = p.rec + 1 WHERE p.id = :id ")
+    int updateRec(Long id);
+
     /*
         여기서 사용하는 쿼리는 RDB와 약간 차이가 있다.
         *** "JPQL" 나중에 찾아보기! ***

@@ -63,4 +63,10 @@ public class PostsApiController {                       // 1) Controller가
     {
         return postsService.findById(id);
     }
+
+    @PutMapping("/api/v1/rec/{id}")
+    public int updateRec(@PathVariable Long id)
+    {
+        return postsService.updateRec(id);
+    }
 }

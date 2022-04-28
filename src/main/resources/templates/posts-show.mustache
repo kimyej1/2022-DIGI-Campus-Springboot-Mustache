@@ -13,7 +13,7 @@
     </div>
         <input type="hidden" id="id" value="{{posts.id}}">
         <div class="row">
-            <div class="col-2 colLine d-none col-md-2 d-md-block">제목  ==== {{posts.view}}</div>
+            <div class="col-2 colLine d-none col-md-2 d-md-block">제목</div>
             <div class="col colLine fw-bold">
                 {{posts.title}}
             </div>
@@ -22,6 +22,10 @@
             <div class="col-2 colLine d-none col-md-2 d-md-block">작성자</div>
             <div class="col colLine fw-bold">
                 {{posts.author}}
+            </div>
+            <div class="col-3 colLine text-end">
+                읽음 : <span class="fw-bold">{{posts.view}}</span>  |
+                추천 : <span class="fw-bold" id="idRec">{{posts.rec}}</span>   <!--이 값 찾아와서 +1 하려구-->
             </div>
         </div>
         <div class="row">
@@ -34,6 +38,7 @@
             <div class="col colLine text-center">
                 <button type="button" id="update" class="btn btn-primary" onClick="location.href='/posts/update/{{posts.id}}'">수정</button>
                 <button type="button" id="btn-delete" class="btn btn-primary">삭제</button>
+                <button type="button" id="btn-rec" class="btn btn-primary" >추천</button>
                 <button type="button" id="btn-list" class="btn btn-primary" onClick="location.href='/'">목록</button>
             </div>
         </div>

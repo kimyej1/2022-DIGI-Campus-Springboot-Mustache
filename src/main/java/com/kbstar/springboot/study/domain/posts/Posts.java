@@ -54,6 +54,9 @@ public class Posts extends BaseTimeEntity {
     @Column(columnDefinition = "integer default 0", nullable = false)
     private int view;
 
+    @Column(columnDefinition = "integer default 0", nullable = false)
+    private int rec; // 추천하기
+
     // Copy Constructor
     @Builder
     public Posts(String title, String content, String author)

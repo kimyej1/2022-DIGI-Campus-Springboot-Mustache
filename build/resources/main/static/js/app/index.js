@@ -12,6 +12,9 @@ var main = {
         $('#btn-delete').on('click', function() {
             _this.delete();
         });
+        $('#btn-rec').on('click', function() {
+            _this.rec();
+        })
     },
     save : function() {
         var data = {
@@ -83,9 +86,26 @@ var main = {
         {
             // 취소..
         }
+    },
+    rec : function() {
+        let id = $("#id").val();
 
+        $.ajax({
+            type: 'PUT',
+            dataType: 'json',
+            url: '/api/v1/rec/' + id,
+            contentType: 'application/json; charset=utf-8'
+        })
+        .done(function(){
+            alert('👍🏻 추천되었습니다.');
+            let idRec = $('#idRec');
+            let newRec = parseInt(idRec.html()) + 1;
+            idRec.html(newRec);
+        })
+        .fail(function(error){
+            alert(JSON.stringify(error));
+        });
     }
-
 }
 
 main.init();
