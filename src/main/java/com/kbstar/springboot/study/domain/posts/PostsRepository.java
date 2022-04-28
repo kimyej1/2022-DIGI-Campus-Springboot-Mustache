@@ -1,6 +1,7 @@
 package com.kbstar.springboot.study.domain.posts;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
@@ -25,7 +26,11 @@ import java.util.List;
 public interface PostsRepository extends JpaRepository<Posts, Long> { // JpaRepository 상속받으면 얘가 다 해줌
 
     @Query("SELECT p FROM Posts p ORDER BY p.id DESC")
-    List<Posts> finalAllDesc();
+    List<Posts> findAllDesc();
+
+    @Modifying   // 이 쿼리는 데이터에 영향을 미치는 쿼리야 (insert, update, delete)
+    @Query("UPDATE Posts p SET p.view = p.view + 1 WHERE p.id = :id ")
+    int updateView(Long id);
 
     /*
         여기서 사용하는 쿼리는 RDB와 약간 차이가 있다.

@@ -56,6 +56,12 @@ public class PostsService {
     }
 
     @Transactional
+    public int updateView(Long id)
+    {
+        return postsRepository.updateView(id);
+    }
+
+    @Transactional
     public void delete(Long id)
     {
         Posts posts = postsRepository.findById(id).orElseThrow(
@@ -78,7 +84,7 @@ public class PostsService {
     public List<PostsListResponseDto> findAllDesc()
     {
         return postsRepository
-                .finalAllDesc()
+                .findAllDesc()
                 .stream()
                 .map(PostsListResponseDto::new)
                 .collect(Collectors.toList());

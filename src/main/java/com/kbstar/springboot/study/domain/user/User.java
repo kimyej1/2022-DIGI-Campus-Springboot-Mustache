@@ -29,6 +29,8 @@ public class User extends BaseTimeEntity {
     @Column(nullable = false)
     private Role role;
 
+    // private int rec; // 추천하기
+
     @Builder
     public User(String name, String email, String picture, Role role)   // constructor
     {

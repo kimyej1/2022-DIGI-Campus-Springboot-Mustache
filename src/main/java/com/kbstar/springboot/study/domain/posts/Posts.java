@@ -6,11 +6,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-
-@Getter
-@NoArgsConstructor
-@Entity
-
 /*
     13. 게시글 관련 클래스 정의
         <form method='get' enctype='multiport/form-data' action='a.jsp'> // enctype 저거 안쓰면 파일이 이름만 날아가고 사이즈, 이런 속성은 안날라감
@@ -37,19 +32,27 @@ import javax.persistence.*;
     31. JPA Auditing을 위해 BaseTimeEntity 클래스를 상속받는다. (extends BaseTimeEntity)
         Application.java : 시작하는 부분 -> 여기에 JPA Auditing 활성화시키는 Annotation 추가해야함
  */
+
+@Getter
+@NoArgsConstructor
+@Entity
 public class Posts extends BaseTimeEntity {
 
     @Id                     // key value
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;        // idx 같은 역할 : 게시글의 id
 
-    @Column(length=500, nullable = false)
+    @Column(length = 500, nullable = false)
     private String title;
 
-    @Column(columnDefinition="TEXT", nullable = false)
+    @Column(columnDefinition = "TEXT", nullable=false)
     private String content;
 
+    @Column(length = 100, nullable=false)
     private String author;
+
+    @Column(columnDefinition = "integer default 0", nullable = false)
+    private int view;
 
     // Copy Constructor
     @Builder

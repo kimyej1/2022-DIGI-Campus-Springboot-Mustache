@@ -16,6 +16,7 @@ public class PostsListResponseDto {
 //    private String content; -- 목록에 콘텐츠는 필요없어
     private String author;
     private String modifiedDate;
+    private int view;
 
     public PostsListResponseDto(Posts entity)
     {
@@ -23,6 +24,7 @@ public class PostsListResponseDto {
         this.title = entity.getTitle();
         this.author = entity.getAuthor();
         this.modifiedDate = entity.getModifiedDate();
+        this.view = entity.getView();
     }
 
 }

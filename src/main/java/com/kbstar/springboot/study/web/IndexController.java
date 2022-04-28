@@ -54,7 +54,10 @@ public class IndexController {
     @GetMapping("/posts/show/{id}")
     public String postShow(@PathVariable Long id, Model model)
     {
-        PostsResponseDto dto = postsService.findById(id);
+        // 읽은 카운트 먼저 증가시키고, 읽어오기
+        postsService.updateView(id);                        // 카운트 증가
+
+        PostsResponseDto dto = postsService.findById(id);   // 읽어오기
         model.addAttribute("posts", dto);
         return "posts-show";
     }
