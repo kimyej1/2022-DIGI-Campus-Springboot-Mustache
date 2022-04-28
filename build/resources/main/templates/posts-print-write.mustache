@@ -1,0 +1,44 @@
+
+<!-- layout/posts-print-write.mustache -->
+{{>layout/header}}
+    <div class="row">
+        <div class="col">
+            <h5 class="text-primary fw-bold"><span class="material-icons icon">edit</span> 글쓰기</h5>
+        </div>
+
+        <div class="row">
+            <div class="col" id="debug">
+                <!-- 요자리에 오류났을 때 메시지를 보여주려고 함 -->
+            </div>
+        </div>
+        <form>
+            <div class="row">
+                <div class="col-2 colLine d-none col-md-2 d-md-block">제목</div>
+                <div class="col colLine">
+                    <input type="text" name="title" id="title" class="form-control" required placeholder="제목을 입력하세요.">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-2 colLine d-none col-md-2 d-md-block">작성자</div>
+                <div class="col colLine">
+                    <input type="text" name="author" id="author" class="form-control" required placeholder="작성자">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-2 colLine d-none col-md-2 d-md-block">내용</div>
+                <div class="col colLine">
+                    <textarea name="content" id="content" class="form-control" rows="15" placeholder="내용을 입력하세요."></textarea>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col colLine text-center">
+                    <button type="button" id="btn-write" class="btn btn-primary">등록</button>
+                    <button type="button" class="btn btn-primary" onClick="location.href='/'">목록</button> <!--버튼에 링크 해도 되고-->
+                    <!-- location.href='/' : 뒤에 아무것도 없는 http://localhost:8080/(메인)로 가라! -->
+                    <a href="http://kbstar.com" class="btn btn-warning">KBSTAR</a> <!-- 아님 이렇게 텍스트링크에 버튼 클래스 입혀도되고 -->
+                </div>
+            </div>
+        </form>
+    </div>
+    <script src="/js/app/index.js"></script>
+{{>layout/footer}}

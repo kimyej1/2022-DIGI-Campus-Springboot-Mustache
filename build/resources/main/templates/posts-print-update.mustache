@@ -1,0 +1,44 @@
+
+<!-- update는 글쓰기와 같은 구조에 값만 미리 셋팅되어있으면 됨! -->
+{{>layout/header}}
+    <div class="row">
+        <div class="col">
+            <h5 class="text-primary fw-bold"><span class="material-icons icon">edit</span> 글 수정하기</h5>
+        </div>
+
+        <form>
+            <div class="row">
+                <div class="col-2 colLine d-none col-md-2 d-md-block">글번호</div>
+                <div class="col colLine">
+                    <input type="text" name="id" id="id" class="form-control" value="{{posts.id}}" readonly>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-2 colLine d-none col-md-2 d-md-block">제목</div>
+                <div class="col colLine">
+                    <input type="text" name="title" id="title" class="form-control" required placeholder="제목을 입력하세요."
+                    value="{{posts.title}}">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-2 colLine d-none col-md-2 d-md-block">작성자</div>
+                <div class="col colLine">
+                    <input type="text" name="author" id="author" class="form-control" readonly value="{{posts.author}}">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-2 colLine d-none col-md-2 d-md-block">내용</div>
+                <div class="col colLine">
+                    <textarea name="content" id="content" class="form-control" rows="15" placeholder="내용을 입력하세요">{{posts.content}}</textarea>  <!-- textarea는 value= 이렇게 하는거 아님! -->
+                </div>
+            </div>
+            <div class="row">
+                <div class="col colLine text-center">
+                    <button type="button" id="btn-update" class="btn btn-outline-success">수정완료</button>
+                    <button type="button" class="btn btn-primary" onClick="location.href='/'">목록</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <script src="/js/app/index.js"></script>
+{{>layout/footer}}

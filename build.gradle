@@ -1,0 +1,43 @@
+plugins {
+    id 'org.springframework.boot' version '2.4.1'
+    id 'io.spring.dependency-management' version '1.0.10.RELEASE'
+    id 'java'
+}
+
+group 'com.kbstar'
+version '1.0.4-SNAPSHOT-' + new Date().format("yyyyMMddHHmmss")
+sourceCompatibility = 1.8   // java 1.8
+
+
+repositories {
+    mavenCentral()
+    jcenter()   // deprecated(2022.2)
+}
+
+test {
+    useJUnitPlatform()
+}
+
+dependencies {
+    implementation('org.springframework.boot:spring-boot-starter-web')
+    implementation('org.springframework.boot:spring-boot-starter-mustache') // mustache 추가
+
+    // 4-1. Lombok > 추가 후 새로고침
+    implementation('org.projectlombok:lombok')
+
+    // 7. getter가 정상적으로 동작하기 위해 추가
+    //       ******** 뭔가가 변경되면 항상 새로고침! (sync) ********
+    annotationProcessor('org.projectlombok:lombok')
+    testImplementation('org.projectlombok:lombok')
+    testAnnotationProcessor('org.projectlombok:lombok')
+
+    testImplementation('org.springframework.boot:spring-boot-starter-test')
+
+    // 12. JPA : use in-memory database H2DB
+    implementation('org.springframework.boot:spring-boot-starter-data-jpa')
+    implementation('com.h2database:h2')
+//    implementation('org.mariadb.jdbc:mariadb-java-client:2.1.2')
+}
+
+// 새로고침 : ctrl + shift + o (window)
+// 맥은 모름... 우측 Gradle > 새로고침 아이콘

@@ -1,0 +1,115 @@
+
+create table posts (
+    id              bigint(20) auto_increment, -- int여도 되는데, DB에서 long type으로 했기때문에 bigint로 해봄
+    title           varchar(200),
+    content         text(4000),
+    author          char(200),
+    create_date     datetime,
+    modified_date   datetime,
+
+    primary key(id)
+);
+
+조회
++-----------------------------+
+|  Java Application           |
+|                             |
+|     +------------------+    |
+|     | JPA              |    |
+|     | +--------------+ |    |            +---------+
+|     | |  JDBC        + +----+---SQL--->  |   DB    |
+|     | |  API         + +<---+---Ret----  |         |
+|     | +--------------+ |    |            +---------+
+|     +------------------+    |
++-----------------------------+
+
+저장
++---------------------------------------------+
+|                                             |
+|   +-----------+              +------------+ |
+|   |           |   (Entity)   | JPA        | |
+|   |   Member  | --Persist -->|  +-------+ | |
+|   |   DAO     |              |  | JDBC  | + +---(insert SQL) ---> DB
+|   |           |              |  +-------+ | |
+|   +-----------+              +------------+ |
+|                                             |
++---------------------------------------------+
+
+
+저장
++---------------------------------------------+
+|                                             |
+|   +-----------+              +------------+ |
+|   |           |              | JPA        | |
+|   |   Member  |---find(id)-->|  +-------+ | |                     +------+
+|   |   DAO     |              |  | JDBC  | + +---(insert SQL) ---> |  DB  |
+|   |           |   (entity)   |  | API   | | |<------ Ret -------- |      |
+|   |           |<--(object)---|  +-------+ | |                     +------+
+|   +-----------+              +------------+ |
+|                                             |
++---------------------------------------------+
+
+
+
+0. Intellij/Gradle 설치 및 설정
+	- 프로젝트 생성 : (Language)Java, (Build System)Gradle
+	- ** Main과 Test는 디렉토리 구조가 동일해야함 **
+	- 대소문자 무시 설정
+		Preferences > Editor > General > Code Completion > Match case 해제 > Apply
+
+1. Applicaion.java 만들기
+	- 진입점 설정
+		@SpringBootApplication : 여기부터 설정 읽어라
+		SpringApplication.run() : 내장WAS(TomCat) 실행해라
+	- build.gradle에 JPA(클래스-DB 자동매핑 API)와 H2DB(in-memory DB) 등록 후 새로고침
+
+2. Lombok 설치
+	- constructor, getters/setters 자동 처리하는 역할
+		@Getter / @Setter
+		@RequiredArgsConstructor : final 변수들로 구성된 copy constructor 생성
+		@NoArgsConstructor : default constructor
+	- build.gradle에 Lombok 등록 후 새로고침
+
+3. Entity 만들기
+	- 테이블과 클래스 매핑
+	- 객체가 업데이트되면 자동으로 실제 DB에 업데이트되도록 설정(데이터 지속성)
+	- ** 내부적으로 snake표기법이 사용되므로, 변수 등 camel표기법 사용할 것 **
+		@Entity
+		@Id : DB key value
+		@GeneratedValue
+		@Column : 테이블 내부 생성할때 사이즈 등 속성 설정
+
+4. Request DTO 만들기
+	- Lombok 이용해서 기본구조 만들기
+	- Test에서 Lombok 기능 단위테스트
+		assertThat()
+	cf) Save Request DTO에는 .toEntity 포함(DTO -> Entity)
+
+5. Repository 만들기
+	- DB 접근이 가능하게 해주는 interface (또는 DB 자체)
+	- Test에서 저장소 처리가 잘 되는지 확인
+		@AfterEach : 단위테스트 하나 끝날때마다 수행 (DB에 영향 미치지 못하도록 clear하는 등에 이용)
+
+6. Service Layer 만들기
+	- 실제 DB에 업데이트하는 코드 transactional하게 작업
+		@Service
+		@Transactional : All or Nothing
+	- (예) 	save : param Dto를 .toEntity() 이용해서 Entity단위로 Repository에 save
+		update : Repository에서 param id(key)로 찾아서 param Dto로 update
+		findById : Reposiroty에서 param id(key)로 찾아서 리턴
+
+7. Controller 만들기
+	- Method(Get/Post/Put/Delete)별로 매핑 어노테이션 사용
+	  ** insert와 update를 구분 **
+		@GetMapping : Get으로 오는 애들 mapping
+		@PostMapping : Post mapping (INSERT)
+		@PutMapping : Put mapping (UPDATE)
+	- 각각 REST 등록 (예) /api/v1/posts/(put, get인 경우){id}
+		@RestController
+	- (예) 	save : (Post) param Dto 받아서 Service에 주면서 save 요청(리턴)
+		update : (Put) param Dto 받아서 Service에 주면서 param id를 Dto로 바꿔달라고 요청(리턴)
+		findById : (Get) param id 받아서 Serviced에 주면서 id해당하는거 보여달라고 요청(리턴)
+
+8. Response DTO 만들기
+	- 요청에 대한 응답 데이터 : Entity -> DTO
+
