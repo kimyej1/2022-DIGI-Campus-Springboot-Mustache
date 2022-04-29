@@ -1,3 +1,132 @@
+** JSON : JavaScript Object Notation
+
+    (예1)
+    {
+        "name"      : "홍길동",
+        "age"       : 12,
+        "company"   : {
+            "name"  : "국민은행",
+            "http"  : "https://kbstar.com"
+        },
+        "address"   : "서울"
+    }
+
+    {{ name }}         --> 홍길동
+    {{ company.name }} --> 국민은행
+    {{ company }}      --> 안에있는 내용 다나옴 (java면 'Object' 출력)
+
+    (예2)
+    {
+        "person"    : {
+            "name"  : "홍길동",
+            "age"   : 12
+        },
+        "company"   : {
+            "name"  : "국민은행",
+            "http"  : "http://kbstar.com"
+            "hq"    : "서울"      // headquarter
+        }
+    }
+
+    (예3)
+    {
+        "employee"  : [         // [] 데이터 나열
+            {
+                "name" : "홍길동",
+                "age"  : 12
+            },
+            {   "name" : "이순신", "age"  : 34  },
+            {   "name" : "세종",  "age" : 56   }
+        ],
+        "employer"  : [
+
+        ]
+    }
+
+
+** Mustache 의 표기법
+    {{! 주석 comment }}  -- 콧수염 모양이라서!
+
+    1. 변수   :   {{ 변수이름 }}
+        {  "name" : "이순신", "age"  : 34  }
+
+        {{ name }}      {{! 홍길동 }}
+        {{ age }}       {{! 12 }}
+        {{ company }}   {{! none }}
+
+        {{{ name }}}    {{! 홍길동 }}
+
+
+    2. Section  :   (제한된 형태의) 조건문, 반복문
+            {{ # 변수명 }} ~ {{ / 변수명 }}
+
+        2-1. 조건문
+            {   "name"  :   "홍길동    }
+
+                {{#name}}
+                    이 사람의 이름은 {{name}}입니다.
+                {{/name}}
+                {{^name}}
+                    사람 없음
+                {{/name}}
+
+            {
+                "person"  :   { "name":"홍길동", "age":12 },
+                "company" :   { "name":"국민은행" }
+            }
+
+                {{#person}}
+                    {{name}}의 회사명은 {{company.name}}입니다.
+                    // 원래 person.name으로 써야하는데, #person으로 이미 person까지 와있는 상태라서, name만 써도 됨!
+                {{/person}}
+
+        2-2. 반복문
+            {   "member" : [ { "name" : "홍길동" }, { "name" : "이순신" }, { "name" : "세종" }  ]   }
+
+                {{#member}}
+                    {{name}}    // 계속 돌면서 멤버가 없을때까지 출력 : 홍길동, 이순신, 세종 (끝)
+                {{/member}}
+
+        2-3. 반전 섹션 : not ^
+            {   "member" : []   }   // 비어있음
+
+                {{#member}}
+                    {{name}}
+                {{/member}}
+                {{^member}}
+                    사람이 없습니다.
+                {{/member}}
+
+
+    3. 부분 템플릿 (Partial Template) : >
+        Java : import, PHP : include
+        {{>layout/header}}
+
+        ==== user.mustache =====
+         내 이름은 {{name}} 입니다.
+        ========================
+
+        ==== index.mustache ====
+
+        <div> Include </div>
+
+        {{#name}}
+            {{>user}}   // 이 자리에 user의 "내 이름은~ 입니다." import
+        {{/name}}
+        ========================
+
+
+    4. 구분자 {{ , }}  : 별로 안중요..참고용
+        다른 특정한 언어에 너무 익숙해진 사람들에게 유용함
+
+        일반적 {{ default_variable }}
+
+        {{=<%   %>=}} or {{=<?  ?>=}}
+        <? name ?>
+
+        되돌아오려면
+        {{={{   }}=}}
+
 
 create table posts (
     id              bigint(20) auto_increment, -- int여도 되는데, DB에서 long type으로 했기때문에 bigint로 해봄
