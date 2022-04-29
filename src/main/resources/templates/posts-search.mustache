@@ -1,0 +1,78 @@
+
+{{>layout/header}}
+
+<div class="row">
+    <div class="col text-primary">
+        Springboot 게시판 (Search)
+    </div>
+</div>
+
+<form method="GET" action="/posts/search">  <!-- 얘는 주소창에 보여도 됨 -->
+<div class="row">
+    <div class="col-2 colLine">검색어</div>
+    <div class="col-8 colLine">
+        <input type="text" name="keyword" id="keyword" class="form-control" placeholder="검색어를 입력하세요.">
+    </div>
+    <div class="col-1 colLine">
+        <button type="submit" id="btn-search" class="btn btn-sm btn-primary form-control">검색</button>
+    </div>
+    <div class="col-1 colLine">
+        <button type="button" class="btn btn-sm btn-primary form-control" onClick="location.href='/'">전체보기</button>
+    </div>
+</div>
+</form>
+    <!-- 번호, 제목, 작성자, 수정일 -->
+<div class="row">
+    <div class="col-1 colLine">번호</div>
+    <div class="col-5 colLine">제목</div>
+    <div class="col-2 colLine">작성자</div>
+    <div class="col-2 colLine">수정일</div>
+    <div class="col colLine">읽음</div>
+    <div class="col colLine">추천</div>
+</div>
+
+{{#searchList}}  <!-- 'enhanced for' 와 비슷하게 동작 , while 돌면서 컬렉션에서 계속 하나씩 가져오는거랑 똑같음 -->
+    <div class="row">
+        <div class="col-1 colLine">{{id}}</div>
+        <div class="col-5 colLine ellipsis"><a href="/posts/show/{{id}}">{{title}}</a></div> <!--a tag : clickable-->
+        <div class="col-2 colLine">{{author}}</div>
+        <div class="col-2 colLine ellipsis">{{modifiedDate}}</div>
+        <div class="col colLine">{{view}}</div>
+        <div class="col colLine">{{rec}}</div>
+    </div>
+{{/searchList}}
+
+{{!pagination}}
+    <div class="row">
+        <div class="col colLine text-center">
+            {{#hasPrev}}
+                <button type="button" class="btn btn-sm btn-primary" onClick="location.href='?page={{prev}}&keyword={{keyword}}'">
+                    <span class="material-icons icon">chevron_left</span>
+                </button>
+            {{/hasPrev}}
+            {{^hasPrev}} {{! 이전페이지 없으면 왼쪽버튼 비활성화 }}
+                <button type="button" class="btn btn-sm btn-secondary" disabled>
+                    <span class="material-icons icon">chevron_left</span>
+                </button>
+            {{/hasPrev}}
+
+            {{#hasNext}}
+                <button type="button" class="btn btn-sm btn-primary" onClick="location.href='?page={{next}}&keyword={{keyword}}'">
+                    <span class="material-icons icon">chevron_right</span>
+                </button>
+            {{/hasNext}}
+            {{^hasNext}} {{! 다음페이지 없으면 오른쪽버튼 비활성화 }}
+                <button type="button" class="btn btn-sm btn-secondary" disabled>
+                    <span class="material-icons icon">chevron_right</span>
+                </button>
+            {{/hasNext}}
+        </div>
+    </div>
+
+{{>layout/footer}}
+<!--
+    </div>
+</body>
+</html>
+-->
+

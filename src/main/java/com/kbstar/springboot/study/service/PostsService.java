@@ -79,6 +79,7 @@ public class PostsService {
         postsRepository.delete(posts);
     }
 
+    @Transactional
     public PostsResponseDto findById(Long id)
     {
         Posts posts = postsRepository.findById(id).orElseThrow(             // id로 찾아라
@@ -108,4 +109,15 @@ public class PostsService {
         .map(PostListResponseDto::new)
         = .map(posts -> new PostListResponseDto(posts)) // 람다식
      */
+
+    @Transactional(readOnly = true)
+//    public List<Posts> search(String keyword) // 검색 전체 목록
+    public Page<Posts> search(String keyword, Pageable pageable)  // 검색 페이지 단위 목록
+    {
+//        List<Posts> postsList = postsRepository.findByTitleContaining(keyword);  // 전체 목록
+//        return postsList;
+
+        Page<Posts> postsList = postsRepository.findByTitleContaining(keyword, pageable);  // 페이지 단위 목록
+        return postsList;
+    }
 }

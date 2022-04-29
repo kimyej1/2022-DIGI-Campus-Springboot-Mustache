@@ -1,8 +1,10 @@
 package com.kbstar.springboot.study.web;
 
+import com.kbstar.springboot.study.domain.posts.Posts;
 import com.kbstar.springboot.study.service.PostsService;
 import com.kbstar.springboot.study.web.dto.PostsResponseDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 
 import javax.persistence.Id;
+import java.util.List;
 
 /*
     34. IndexController.java
@@ -44,16 +47,37 @@ public class IndexController {
     @GetMapping("/")
     public String index(Model model, @PageableDefault(sort="id", direction = Sort.Direction.DESC, size = 2) Pageable pageable)    // 이 model이라는 형식에 맞춰서 줘라
     {
-//        model.addAttribute("posts", postsService.findAllDesc());                  // 얘는 100개 있으면 100개 다가져오는애
-        // postsService의 findAllDesc를 index.mustache 에 {{#posts}} 형식으로 맞춰서~~
+        Page<Posts> pageList = postsService.pageList(pageable);
 
-        model.addAttribute("posts", postsService.pageList(pageable));  // 얘는 페이지별로 한페이지에 두개씩 가져오기
+//        model.addAttribute("posts", postsService.findAllDesc());                  // 얘는 100개 있으면 100개 다가져오는애
+        // postsService의 findAllDesc를 index.mustache 에 {{#posts}} 형식으로 맞춰서 js에 날려줘
+
+        model.addAttribute("posts", pageList);  // 페이지별로 한페이지에 두개씩 가져오기
         model.addAttribute("prev", pageable.previousOrFirst().getPageNumber());
         model.addAttribute("next", pageable.next().getPageNumber());
 
 //        model.addAttribute("hasPrev", pageable.hasPrevious());
 //        model.addAttribute("hasNext", pageable.hasNext());
+
+        model.addAttribute("hasPrev", pageList.hasPrevious());  // T/F
+        model.addAttribute("hasNext", pageList.hasNext());
+
         return "index";
+    }
+
+    @GetMapping("/posts/search")
+    public String search(String keyword, Model model, @PageableDefault(sort="id", direction = Sort.Direction.DESC, size = 2) Pageable pageable)
+    {
+        Page<Posts> searchList = postsService.search(keyword, pageable);
+
+        model.addAttribute("searchList", searchList);  // 페이지별로 한페이지에 두개씩 가져오기
+        model.addAttribute("prev", pageable.previousOrFirst().getPageNumber());
+        model.addAttribute("next", pageable.next().getPageNumber());
+        model.addAttribute("hasPrev", searchList.hasPrevious());  // T/F
+        model.addAttribute("hasNext", searchList.hasNext());
+        model.addAttribute("keyword", keyword);
+
+        return "posts-search"; // posts-search.mustache로 가라
     }
 
     @GetMapping("/posts/printWrite")

@@ -46,5 +46,11 @@ public interface PostsRepository extends JpaRepository<Posts, Long> { // JpaRepo
         *** "JPQL" 나중에 찾아보기! ***
      */
 
+    // ** 검색 전체 목록     -- 얘는 검색만하고, 소팅같은거는 페이지네이션쪽에서 해줌
+//    List<Posts> findByTitleContaining(String key);    // SELECT * FROM Posts WHERE title like '%key%' 이거랑 같은 기능
+
+    // ** 검색 정보를 페이지 단위 목록으로
+    Page<Posts> findByTitleContaining(String key, Pageable pageable);
+
 }
 

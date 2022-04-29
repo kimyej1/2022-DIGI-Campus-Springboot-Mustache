@@ -6,6 +6,11 @@
     아이디 : #idName
 */
 
+.tagControl {
+    white-space:pre;
+}
+
+
 html, body {
     /* padding: 40px*/
 }
