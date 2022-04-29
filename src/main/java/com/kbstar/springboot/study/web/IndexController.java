@@ -45,7 +45,7 @@ public class IndexController {
      */
 
     @GetMapping("/")
-    public String index(Model model, @PageableDefault(sort="id", direction = Sort.Direction.DESC, size = 2) Pageable pageable)    // 이 model이라는 형식에 맞춰서 줘라
+    public String index(Model model, @PageableDefault(sort="id", direction = Sort.Direction.DESC, size = 3) Pageable pageable)    // 이 model이라는 형식에 맞춰서 줘라
     {
         Page<Posts> pageList = postsService.pageList(pageable);
 
@@ -66,7 +66,7 @@ public class IndexController {
     }
 
     @GetMapping("/posts/search")
-    public String search(String keyword, Model model, @PageableDefault(sort="id", direction = Sort.Direction.DESC, size = 2) Pageable pageable)
+    public String search(String keyword, Model model, @PageableDefault(sort="id", direction = Sort.Direction.DESC, size = 3) Pageable pageable)
     {
         Page<Posts> searchList = postsService.search(keyword, pageable);
 
