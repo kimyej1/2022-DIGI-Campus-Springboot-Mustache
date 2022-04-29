@@ -3,6 +3,9 @@ package com.kbstar.springboot.study.web;
 import com.kbstar.springboot.study.service.PostsService;
 import com.kbstar.springboot.study.web.dto.PostsResponseDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -39,10 +42,17 @@ public class IndexController {
      */
 
     @GetMapping("/")
-    public String index(Model model)    // 이 model이라는 형식에 맞춰서 줘라
+    public String index(Model model, @PageableDefault(sort="id", direction = Sort.Direction.DESC, size = 2) Pageable pageable)    // 이 model이라는 형식에 맞춰서 줘라
     {
-        model.addAttribute("posts", postsService.findAllDesc());
+//        model.addAttribute("posts", postsService.findAllDesc());                  // 얘는 100개 있으면 100개 다가져오는애
         // postsService의 findAllDesc를 index.mustache 에 {{#posts}} 형식으로 맞춰서~~
+
+        model.addAttribute("posts", postsService.pageList(pageable));  // 얘는 페이지별로 한페이지에 두개씩 가져오기
+        model.addAttribute("prev", pageable.previousOrFirst().getPageNumber());
+        model.addAttribute("next", pageable.next().getPageNumber());
+
+//        model.addAttribute("hasPrev", pageable.hasPrevious());
+//        model.addAttribute("hasNext", pageable.hasNext());
         return "index";
     }
 

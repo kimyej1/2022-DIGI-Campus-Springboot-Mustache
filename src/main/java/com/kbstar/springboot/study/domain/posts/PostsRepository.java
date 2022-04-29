@@ -1,5 +1,7 @@
 package com.kbstar.springboot.study.domain.posts;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -35,6 +37,9 @@ public interface PostsRepository extends JpaRepository<Posts, Long> { // JpaRepo
     @Modifying
     @Query("UPDATE Posts p SET p.rec = p.rec + 1 WHERE p.id = :id ")
     int updateRec(Long id);
+
+//    @Query("SELECT p FROM Posts p ORDER BY p.id DESC")
+//    Page<Posts> findAllPage(Pageable pageable);
 
     /*
         여기서 사용하는 쿼리는 RDB와 약간 차이가 있다.

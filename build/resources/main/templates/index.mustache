@@ -45,24 +45,45 @@
         {{/userName}}
     </div>
 </div>
+
+<div class="row">
+    <div class="col-2 colLine">검색어</div>
+    <div class="col-8 colLine">
+        <input type="text" name="keyword" id="keyword" class="form-control" placeholder="검색어를 입력하세요.">
+    </div>
+    <div class="col-2 colLine">
+        <button type="button" id="btn-search" class="btn btn-sm btn-primary form-control">
+            <span class="material-icons icon">search</span> 검색
+        </button>
+    </div>
+</div>
     <!-- 번호, 제목, 작성자, 수정일 -->
 <div class="row">
     <div class="col-1 colLine">번호</div>
-    <div class="col-6 colLine">제목</div>
+    <div class="col-5 colLine">제목</div>
     <div class="col-2 colLine">작성자</div>
     <div class="col-2 colLine">수정일</div>
     <div class="col colLine">읽음</div>
+    <div class="col colLine">추천</div>
 </div>
 
 {{#posts}}  <!-- 'enhanced for' 와 비슷하게 동작 , while 돌면서 컬렉션에서 계속 하나씩 가져오는거랑 똑같음 -->
     <div class="row">
         <div class="col-1 colLine">{{id}}</div>
-        <div class="col-6 colLine ellipsis"><a href="/posts/show/{{id}}">{{title}}</a></div> <!--a tag : clickable-->
+        <div class="col-5 colLine ellipsis"><a href="/posts/show/{{id}}">{{title}}</a></div> <!--a tag : clickable-->
         <div class="col-2 colLine">{{author}}</div>
         <div class="col-2 colLine ellipsis">{{modifiedDate}}</div>
         <div class="col colLine">{{view}}</div>
+        <div class="col colLine">{{rec}}</div>
     </div>
 {{/posts}}
+
+    <div class="row">
+        <div class="col colLine text-center">
+            <a href="?page={{prev}}" class="btn btn-secondary"><</a>
+            <a href="?page={{next}}" class="btn btn-secondary">></a>
+        </div>
+    </div>
 
 {{>layout/footer}}
 <!--

@@ -7,6 +7,8 @@ import com.kbstar.springboot.study.web.dto.PostsResponseDto;
 import com.kbstar.springboot.study.web.dto.PostsSaveRequestDto;
 import com.kbstar.springboot.study.web.dto.PostsUpdateRequestDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 //import javax.transaction.Transactional;
@@ -94,6 +96,12 @@ public class PostsService {
                 .stream()
                 .map(PostsListResponseDto::new)
                 .collect(Collectors.toList());
+    }
+
+    @Transactional(readOnly = true)
+    public Page<Posts> pageList(Pageable pageable)
+    {
+        return postsRepository.findAll(pageable);
     }
 
     /*
