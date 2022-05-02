@@ -1,5 +1,6 @@
 package com.kbstar.springboot.study.web;
 
+import com.kbstar.springboot.study.config.auth.LoginUser;
 import com.kbstar.springboot.study.config.auth.dto.SessionUser;
 import com.kbstar.springboot.study.domain.posts.Posts;
 import com.kbstar.springboot.study.service.PostsService;
@@ -49,10 +50,12 @@ public class IndexController {
      */
 
     // Google Login
-    private final HttpSession httpSession;
+//    private final HttpSession httpSession;
 
     @GetMapping("/")
-    public String index(Model model, @PageableDefault(sort="id", direction = Sort.Direction.DESC, size = 3) Pageable pageable)    // 이 model이라는 형식에 맞춰서 줘라
+    public String index(Model model,    // 이 model이라는 형식에 맞춰서 줘라
+                        @PageableDefault(sort="id", direction = Sort.Direction.DESC, size = 3) Pageable pageable,
+                        @LoginUser SessionUser user) // Google Login - HttpSession 주석처리하고 이거 넣었음
     {
         Page<Posts> pageList = postsService.pageList(pageable);
 
@@ -70,7 +73,7 @@ public class IndexController {
         model.addAttribute("hasNext", pageList.hasNext());
 
         // Google Login
-        SessionUser user = (SessionUser) httpSession.getAttribute("user");
+//        SessionUser user = (SessionUser) httpSession.getAttribute("user");
         if(user != null)
         {
             model.addAttribute("userName", user.getName());
