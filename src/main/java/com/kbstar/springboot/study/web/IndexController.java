@@ -1,5 +1,6 @@
 package com.kbstar.springboot.study.web;
 
+import com.kbstar.springboot.study.config.auth.dto.SessionUser;
 import com.kbstar.springboot.study.domain.posts.Posts;
 import com.kbstar.springboot.study.service.PostsService;
 import com.kbstar.springboot.study.web.dto.PostsResponseDto;
@@ -8,13 +9,16 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 
+import javax.mail.Session;
 import javax.persistence.Id;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /*
@@ -44,6 +48,9 @@ public class IndexController {
         }
      */
 
+    // Google Login
+    private final HttpSession httpSession;
+
     @GetMapping("/")
     public String index(Model model, @PageableDefault(sort="id", direction = Sort.Direction.DESC, size = 3) Pageable pageable)    // 이 model이라는 형식에 맞춰서 줘라
     {
@@ -61,6 +68,13 @@ public class IndexController {
 
         model.addAttribute("hasPrev", pageList.hasPrevious());  // T/F
         model.addAttribute("hasNext", pageList.hasNext());
+
+        // Google Login
+        SessionUser user = (SessionUser) httpSession.getAttribute("user");
+        if(user != null)
+        {
+            model.addAttribute("userName", user.getName());
+        }
 
         return "index";
     }

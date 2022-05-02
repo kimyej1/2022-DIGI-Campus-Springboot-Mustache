@@ -1,4 +1,5 @@
-plugins {
+plugins
+{
     id 'org.springframework.boot' version '2.4.1'
     id 'io.spring.dependency-management' version '1.0.10.RELEASE'
     id 'java'
@@ -9,16 +10,19 @@ version '1.0.4-SNAPSHOT-' + new Date().format("yyyyMMddHHmmss")
 sourceCompatibility = 1.8   // java 1.8
 
 
-repositories {
+repositories
+{
     mavenCentral()
     jcenter()   // deprecated(2022.2)
 }
 
-test {
+test
+{
     useJUnitPlatform()
 }
 
-dependencies {
+dependencies
+{
     implementation('org.springframework.boot:spring-boot-starter-web')
     implementation('org.springframework.boot:spring-boot-starter-mustache') // mustache 추가
 
@@ -35,9 +39,16 @@ dependencies {
 
     // 12. JPA : use in-memory database H2DB
     implementation('org.springframework.boot:spring-boot-starter-data-jpa')
-//    implementation('com.h2database:h2')
-    implementation('org.mariadb.jdbc:mariadb-java-client:2.1.2')
+    implementation('com.h2database:h2')
+//    implementation('org.mariadb.jdbc:mariadb-java-client:2.1.2')
+
+    // OAuth
+    implementation('org.springframework.boot:spring-boot-starter-oauth2-client')
+    implementation('org.springframework.session:spring-session-jdbc')
+    testImplementation('org.springframework.security:spring-security-test')
 }
+
+
 
 // 새로고침 : ctrl + shift + o (window)
 // 맥은 모름... 우측 Gradle > 새로고침 아이콘
