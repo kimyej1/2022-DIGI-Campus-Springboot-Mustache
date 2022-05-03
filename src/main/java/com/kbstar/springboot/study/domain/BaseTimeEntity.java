@@ -1,3 +1,9 @@
+/*
+    2022.05.03
+    게시글 등록/수정 날짜를 자동으로 관리
+    이 클래스를 상속받으면, create Date, modified Date 인식함
+ */
+
 package com.kbstar.springboot.study.domain;
 
 import lombok.Getter;

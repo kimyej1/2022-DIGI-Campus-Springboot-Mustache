@@ -1,15 +1,14 @@
 <!--
 
-    ㅇ BaseTimeEntity : 게시글 등록/수정 날짜를 자동으로 관리
-                        이 클래스를 상속받으면, create Date, modified Date 인식함
-
-    ㅇ LoginUser      : 로그인과 관련된 코드가 반복적으로 들어가서 점점 지저분해지므로,
-                        따로 하나로 모아두고, Controller에서 가져다 쓸 때는 단순히 파라미터로 추가해서 사용할 수 있도록 만듬
-
-    ㅇ User           : 테이블과 클래스 매핑하는 Entity (객체 업데이트되면 자동으로 DB에 반영하려고)
-    ㅇ Role           : User의 한 항목으로 사용할 Enum (회원 등급 구분해서 나중에 권한 나눌 수 있음)
-
-    ㅇ UserRepository : User로부터 DB 접근 (CRUD : Create Read Update Delete 메소드 자동 생성)
-                        findByEmail()로 이미 DB에 생성되어있는 사용자인지 확인할 수 있음
+    ㅇ BaseTimeEntity
+    ㅇ LoginUser
+    ㅇ User
+    ㅇ Role
+    ㅇ UserRepository
+    ㅇ application-oauth-properties
+    ㅇ SecurityConfig
+    ㅇ OAuthAttributes
+    ㅇ index.mustache
+    ㅇ IndexController
 
 -->

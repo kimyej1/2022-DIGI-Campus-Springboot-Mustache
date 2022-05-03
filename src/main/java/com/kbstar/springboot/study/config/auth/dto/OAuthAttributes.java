@@ -1,3 +1,9 @@
+/*
+    2022.05.03
+    User 엔티티 생성 : 처음 가입할 때 (디폴트 role = guest)
+    나중에 네이버로그인 등 추가할 수도 있음 (지금은 ofGoogle 밖에 없다)
+ */
+
 package com.kbstar.springboot.study.config.auth.dto;
 
 import com.kbstar.springboot.study.domain.user.Role;

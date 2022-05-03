@@ -1,3 +1,8 @@
+/*
+    2022.05.03
+    User의 한 항목으로 사용할 Enum (회원 등급 구분해서 나중에 권한 나눌 수 있음)
+ */
+
 package com.kbstar.springboot.study.domain.user;
 
 import lombok.Getter;

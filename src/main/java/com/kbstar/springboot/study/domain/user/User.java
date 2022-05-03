@@ -1,3 +1,8 @@
+/*
+    2022.05.03
+    테이블과 클래스 매핑하는 Entity (객체 업데이트되면 자동으로 DB에 반영하려고)
+ */
+
 package com.kbstar.springboot.study.domain.user;
 
 import com.kbstar.springboot.study.domain.BaseTimeEntity;

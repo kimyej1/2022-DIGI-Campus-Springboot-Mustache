@@ -1,3 +1,9 @@
+/*
+    2022.05.03
+    세션에 저장된 userName이 있는지 판단해서,
+    있다면 index.mustache에서 userName 사용할 수 있도록 model에 attribute 추가
+ */
+
 package com.kbstar.springboot.study.web;
 
 import com.kbstar.springboot.study.config.auth.LoginUser;

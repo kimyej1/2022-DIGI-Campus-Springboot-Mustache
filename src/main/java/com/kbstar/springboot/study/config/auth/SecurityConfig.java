@@ -1,3 +1,11 @@
+/*
+    2022.05.03
+    시큐리티 관련 설정들 모아둠
+
+    (예) "/api/vi/**" 주소는 최소 Role-Guest 권한을 가진 사람만 접근 가능
+        로그아웃 기능 설정 및 성공 시 메인("/")으로 이동하도록 지정
+ */
+
 package com.kbstar.springboot.study.config.auth;
 
 
